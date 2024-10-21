@@ -1,0 +1,90 @@
+<div class="container mt-3">
+    <h3 class="">Mantenimiento Customer-Seguros</h3>
+    <hr>
+    <div class=" mt-4 d-flex flex-column flex-wrap items ">
+        <div class=" d-flex flex-row flex-wrap justify-content-between">            
+            <div class=" d-flex flex-row align-items-end ">
+                <input type="file" class="form-control" (change)="getFile($event)" accept=".xls, .xlsx">
+            </div>
+            <div class=" text-center justify-self-end ">
+                <form [formGroup]="form" >
+                <div class="d-flex flex-row align-items-end">
+                        <input type="text" class="form-control mt-2 cedulaInput" name="cedula" id="cedulaId" formControlName="cedula"
+                         placeholder="Ingrese cedula" [class.is-invalid]="getInvalid('cedula')" autocomplete="off">
+                        <button class="btn btn-primary ms-3 search " (click)="buscarByCedula()"><i class="bi bi-search"></i></button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        @if (relationList.length==0) {
+            <div class="alert alert-success mt-4" role="alert">
+                No existen registros 
+            </div>
+        }
+        @else {
+            <table class="table mt-4">
+                <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Cedula</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Telephone</th>
+                    <th scope="col">Codigo Seguro</th>
+                    <th scope="col">Nombre Seguro</th>
+                    <th scope="col">Option</th>
+                  </tr>
+                </thead>
+                <tbody>
+                @for (item of relationList; track $index) {
+                    <tr>
+                        <th scope="row">{{$index+1}}</th>
+                        <td>{{item.firstName}} {{item.lastName}} </td>
+                        <td>{{item.cedula}} </td>
+                        <td>{{item.email}}</td>
+                        <td>{{item.telephone}}  </td>
+                        <td>{{item.codeInsurance}}</td>
+                        <td>{{item.nameInsurance}}</td>
+                        <td>
+                            <div class="d-flex ">
+                                <button class="btn btn-danger ms-2"><i class="bi bi-trash3-fill " (click)="eliminar(item)"></i></button>               
+                            </div>
+                        </td>
+                    </tr>
+                }
+                </tbody>
+              </table>
+              <h3>Seguros Asignables</h3>
+              <hr>
+              <table class="table mt-4 text-center">
+                <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Codigo Seguro</th>
+                    <th scope="col">Nombre Seguro</th>
+                    <th scope="col">Prima</th>
+                    <th scope="col">Suma Asegurada</th>
+                    <th scope="col">Option</th>
+                  </tr>
+                </thead>
+                <tbody>
+                @for (item of insuranceList; track $index) {
+                    <tr>
+                        <th scope="row">{{$index+1}}</th>
+                        <td>{{item.codeInsurance}}  </td>
+                        <td>{{item.nameInsurance}}  </td>
+                        <td>{{item.prima}} </td>
+                        <td>{{item.sumaAsegurada}}</td>
+
+                        <td>
+                            <div class="d-flex ">
+                                <button class="btn btn-success" (click)="asignarInsurance(item)"><i class="bi bi-pencil-square"></i></button> 
+                            </div>
+                        </td>
+                    </tr>
+                }
+                </tbody>
+              </table>
+        }
+    </div>
+</div>

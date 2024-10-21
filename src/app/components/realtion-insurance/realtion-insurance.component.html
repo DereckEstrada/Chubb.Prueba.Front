@@ -1,0 +1,47 @@
+<div class="container mt-3">
+    <h3 class="">Insurance-Customer</h3>
+    <hr>
+    <div class=" mt-4 d-flex flex-column flex-wrap items ">
+        <div class="d-flex flex-wrap justify-content-end">
+
+            <div class=" text-center justify-self-end " >
+                <form [formGroup]="form" >
+                <div class="d-flex flex-row align-items-end">
+                        <input type="text" class="form-control mt-2 codeInput" name="code" id="codeId" formControlName="code"
+                         placeholder="Ingrese codigo"  [class.is-invalid]="getInvalid('code')" autocomplete="off">
+                        <button class="btn btn-primary ms-3 search " (click)="buscarByCedula()"><i class="bi bi-search"></i></button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        @if (relationList.length==0) {
+            <div class="alert alert-success mt-4" role="alert">
+                No existen registros 
+            </div>
+        }
+        @else {
+            <table class="table mt-4">
+                <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Codigo Seguro</th>
+                    <th scope="col">Nombre Seguro</th>
+                    <th scope="col">Asegurado</th>
+                    <th scope="col">Email</th>
+                  </tr>
+                </thead>
+                <tbody>
+                @for (item of relationList; track $index) {
+                    <tr>
+                        <th scope="row">{{$index+1}}</th>
+                        <td>{{item.codeInsurance}}</td>
+                        <td>{{item.nameInsurance}}</td>
+                        <td>{{item.firstName}} {{item.lastName}}</td>
+                        <td>{{item.email}} </td>
+                    </tr>
+                }
+                </tbody>
+              </table>
+        }
+    </div>
+</div>

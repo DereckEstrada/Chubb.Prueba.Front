@@ -1,0 +1,20 @@
+input{
+    width: 350px;
+}
+@media (max-width:600px) {
+    input{
+        width: 250px;
+
+    }
+}
+.tableSeguro, .Agregados, .datos{
+    width: 350px;
+}
+
+.btn-primary{
+    background-color: #bcd1d8 !important;
+    border: none;
+    color: black;
+    height: 39px;
+    width: 250px;  
+}

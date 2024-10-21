@@ -1,0 +1,93 @@
+<div class="container mt-3">
+    <h3 class="">Mantenimiento Insurance</h3>
+    <hr>
+    <div class=" mt-4 d-flex flex-column flex-wrap items ">
+        <div class="d-flex flex-wrap justify-content-between">
+            <div class=" d-flex flex-row  align-items-end ">
+                <button class="btn btn-primary register" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop"> Registrar Insurance <i class="bi bi-patch-plus-fill"></i></button>
+            </div>
+            <div class=" text-center justify-self-end " >
+                <form [formGroup]="form" >
+                <div class="d-flex flex-row align-items-end">
+                        <input type="text" class="form-control mt-2 codeInput" name="code" id="codeId" formControlName="code"
+                         placeholder="Ingrese codigo"  [class.is-invalid]="getInvalid('code')" autocomplete="off">
+                        <button class="btn btn-primary ms-3 search " (click)="buscarByCedula()"><i class="bi bi-search"></i></button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        @if (insuranceList.length==0) {
+            <div class="alert alert-success mt-4" role="alert">
+                No existen registros 
+            </div>
+        }
+        @else {
+            <table class="table mt-4">
+                <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Code</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">SumaAsegurada</th>
+                    <th scope="col">Prima</th>
+                    <th scope="col">LegalAge</th>
+                  </tr>
+                </thead>
+                <tbody>
+                @for (item of insuranceList; track $index) {
+                    <tr>
+                        <th scope="row">{{$index+1}}</th>
+                        <td><input type="text" [id]="'codeInsurance'+$index" [(ngModel)]="item.codeInsurance" disabled class="form-control"></td>
+                        <td><input type="text" [id]="'nameInsurance'+$index" [(ngModel)]="item.nameInsurance" disabled class="form-control"></td>
+                        <td><input type="text" [id]="'description'+$index" [(ngModel)]="item.description" disabled class="form-control"></td>
+                        <td><input type="number" [id]="'sumaAsegurada'+$index" [(ngModel)]="item.sumaAsegurada" disabled class="form-control"> </td>
+                        <td><input type="number" [id]="'prima'+$index" [(ngModel)]="item.prima" disabled class="form-control"></td>
+                        <td><input type="text" [id]="'legalAge'+$index" [(ngModel)]="item.legalAge" disabled class="form-control"></td>
+                        <td>
+                            <div class="d-flex ">
+                                <button class="btn btn-success" (click)="editar($index, item)"><i class="bi bi-pencil-square"></i></button> 
+                                <button class="btn btn-danger ms-2"><i class="bi bi-trash3-fill " (click)="eliminar(item)"></i></button>               
+                            </div>
+                        </td>
+                    </tr>
+                }
+                </tbody>
+              </table>
+        }
+    </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="staticBackdropLabel">Registro Insurance</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+        <form [formGroup]="formCreate">
+            <label for="codigoId">Codigo</label>
+            <input type="text" id="codigoId" name="codigo"[(ngModel)]="registarInsurance.codeInsurance" formControlName="codigo" class="form-control" placeholder="Ingrese codigo" [class.is-invalid]="getInvalid('codigo')">
+            <label for="nombreId">Nombre Seguro</label>
+            <input type="text" id="nombreId" name="nombre"[(ngModel)]="registarInsurance.nameInsurance" formControlName="nombre" class="form-control" placeholder="Ingrese nombre del seguro" [class.is-invalid]="getInvalidCreate('nombre')">
+            <label for="descriptionId">Description</label>
+            <input type="text" id="descriptionId" name="description" [(ngModel)]="registarInsurance.description" formControlName="description" class="form-control" placeholder="Ingrese description" [class.is-invalid]="getInvalidCreate('description')">
+            <label for="sumaId">Suma Asegurada</label>
+            <input type="text" id="codigoId" name="suma"[(ngModel)]="registarInsurance.sumaAsegurada" formControlName="suma" class="form-control" placeholder="Ingrese suma asegurada" [class.is-invalid]="getInvalidCreate('suma')">
+            <label for="primaId">Prima</label>
+            <input type="text" id="primaId" name="prima" [(ngModel)]="registarInsurance.prima"formControlName="prima" class="form-control" placeholder="Ingrese prima" [class.is-invalid]="getInvalidCreate('prima')">
+            <label for="legalId">Legal Age</label>
+              <select class="form-select" name="legal" id="legalId"[(ngModel)]="registarInsurance.legalAge" formControlName="legal" [class.is-invalid]="getInvalidCreate('legal')" >
+                  <option value="true">Mayores de edad</option>
+                  <option value="false">Menores de edad</option>
+              </select>
+        </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary registrarButton" (click)="registrar()">Registrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
