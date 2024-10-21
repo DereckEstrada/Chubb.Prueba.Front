@@ -100,6 +100,10 @@ export class CustomerComponent implements OnInit{
   editar(item:CustomerModel){
     debugger
     let firstName=document?.getElementById('firstName'+item.customerId) as HTMLInputElement;
+    let lastName=document?.getElementById('lastName'+item.customerId) as HTMLInputElement;
+    let cedula=document?.getElementById('cedula'+item.customerId) as HTMLInputElement;
+    let telephone=document?.getElementById('telephone'+item.customerId) as HTMLInputElement;
+    let email=document?.getElementById('email'+item.customerId) as HTMLInputElement;
     if(firstName.disabled){
       Swal.fire({
         title: "Deseas editar este registro?",
@@ -109,10 +113,6 @@ export class CustomerComponent implements OnInit{
         denyButtonText: `Cancelar`
       }).then((result) => {
         if (result.isConfirmed) {
-          let lastName=document?.getElementById('lastName'+item.customerId) as HTMLInputElement;
-          let cedula=document?.getElementById('cedula'+item.customerId) as HTMLInputElement;
-          let telephone=document?.getElementById('telephone'+item.customerId) as HTMLInputElement;
-          let email=document?.getElementById('email'+item.customerId) as HTMLInputElement;
           if(firstName.disabled){
             firstName.disabled=false;
             lastName.disabled=false;
@@ -131,6 +131,7 @@ export class CustomerComponent implements OnInit{
           denyButtonText: `Cancel`
         }).then((result) => {
           if (result.isConfirmed) {
+            
             this._service.UpdateCustomer(this.generateRequest(item)).subscribe({
               next:resp=>{
                if(resp.code=='201'){
@@ -140,6 +141,11 @@ export class CustomerComponent implements OnInit{
                   showConfirmButton: false,
                   timer: 1500
                 })
+                firstName.disabled=true;
+                lastName.disabled=true;
+                cedula.disabled=true;
+                telephone.disabled=true;
+                email.disabled=true;
                } 
               }
               })

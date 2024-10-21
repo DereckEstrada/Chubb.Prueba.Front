@@ -42,12 +42,10 @@ export class RegisterCostumerComponent  implements OnInit{
     this._servicesInsurance.GetTypeInsurance(this.generateRequest(false)).subscribe({
       next:resp=>{
         if(resp.code=='200' || resp.code=='201'){
-          console.log(resp);
           this.noLegalInsurances=resp.data;
           this._servicesInsurance.GetTypeInsurance(this.generateRequest(true)).subscribe({
             next:resp=>{
               if(resp.code=='200'){
-                console.log(resp);
                 this.legalInsurances=resp.data;
               }
             }
@@ -158,6 +156,7 @@ export class RegisterCostumerComponent  implements OnInit{
           next:resp=>{
             if(resp.code=="201"){
               debugger
+              if(this.AgregadosInsurances.length!=0){
               this.AgregadosInsurances.forEach(agregados=>{
                 let relation=new RelationModel();
                 relation.customerCedula=this.customerCreate.cedula;
@@ -190,12 +189,23 @@ export class RegisterCostumerComponent  implements OnInit{
               })
             }else{
               Swal.fire({
+                icon:'success',
+                title:'Registrado correctamente',
+                showConfirmButton: false,
+                allowOutsideClick:false,
+                timer: 1500
+              })  
+            }
+            }else{
+              Swal.fire({
                 icon: "error",
                 title: "Oops...\nHa ocurrido un error",
                 text:resp["message"],
                 showConfirmButton: false,
                 timer: 1500
               }) 
+              this.customerCreate=new CustomerModel();
+              Object.values(this.form.controls).forEach(controls=>controls.markAsUntouched());
             }
           },
           error:err=>{

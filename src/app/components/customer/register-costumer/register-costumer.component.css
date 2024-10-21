@@ -18,3 +18,6 @@ input{
     height: 39px;
     width: 250px;  
 }
+.guardarButton{
+    margin-bottom: 15px;
+}

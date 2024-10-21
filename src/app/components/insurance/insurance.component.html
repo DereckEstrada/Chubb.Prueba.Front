@@ -38,9 +38,9 @@
                 @for (item of insuranceList; track $index) {
                     <tr>
                         <th scope="row">{{$index+1}}</th>
-                        <td><input type="text" [id]="'codeInsurance'+$index" [(ngModel)]="item.codeInsurance" disabled class="form-control"></td>
-                        <td><input type="text" [id]="'nameInsurance'+$index" [(ngModel)]="item.nameInsurance" disabled class="form-control"></td>
-                        <td><input type="text" [id]="'description'+$index" [(ngModel)]="item.description" disabled class="form-control"></td>
+                        <td><input type="text" [id]="'codeInsurance'+$index" [(ngModel)]="item.codeInsurance" disabled class="form-control" ></td>
+                        <td><input type="text" [id]="'nameInsurance'+$index" [(ngModel)]="item.nameInsurance" disabled class="form-control" ></td>
+                        <td><input type="text" [id]="'description'+$index" [(ngModel)]="item.description" disabled class="form-control" ></td>
                         <td><input type="number" [id]="'sumaAsegurada'+$index" [(ngModel)]="item.sumaAsegurada" disabled class="form-control"> </td>
                         <td><input type="number" [id]="'prima'+$index" [(ngModel)]="item.prima" disabled class="form-control"></td>
                         <td><input type="text" [id]="'legalAge'+$index" [(ngModel)]="item.legalAge" disabled class="form-control"></td>
@@ -85,7 +85,7 @@
         </form>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-secondary" id="closeButton" data-bs-dismiss="modal">Close</button>
           <button type="button" class="btn btn-primary registrarButton" (click)="registrar()">Registrar</button>
         </div>
       </div>

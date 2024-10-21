@@ -116,6 +116,11 @@ export class InsuranceComponent implements OnInit {
   editar(index:number, item:InsuranceModel){
     debugger
     let codeInsurance=document?.getElementById('codeInsurance'+index) as HTMLInputElement;
+    let nameInsurance=document?.getElementById('nameInsurance'+index) as HTMLInputElement;
+    let description=document?.getElementById('description'+index) as HTMLInputElement;
+    let sumaAsegurada=document?.getElementById('sumaAsegurada'+index) as HTMLInputElement;
+    let prima=document?.getElementById('prima'+index) as HTMLInputElement;
+    let legalAge=document?.getElementById('legalAge'+index) as HTMLInputElement;
     if(codeInsurance.disabled){
       Swal.fire({
         title: "Deseas editar este registro?",
@@ -125,11 +130,6 @@ export class InsuranceComponent implements OnInit {
         denyButtonText: `Cancelar`
       }).then((result) => {
         if (result.isConfirmed) {
-          let nameInsurance=document?.getElementById('nameInsurance'+index) as HTMLInputElement;
-          let description=document?.getElementById('description'+index) as HTMLInputElement;
-          let sumaAsegurada=document?.getElementById('sumaAsegurada'+index) as HTMLInputElement;
-          let prima=document?.getElementById('prima'+index) as HTMLInputElement;
-          let legalAge=document?.getElementById('legalAge'+index) as HTMLInputElement;
             codeInsurance.disabled=false;
             nameInsurance.disabled=false;
             description.disabled=false;
@@ -139,6 +139,7 @@ export class InsuranceComponent implements OnInit {
           }
         })
   }else{
+
         Swal.fire({
           title: "Deseas actualizar el registro?",
           showDenyButton: true,
@@ -147,6 +148,7 @@ export class InsuranceComponent implements OnInit {
           denyButtonText: `Cancel`
         }).then((result) => {
           if (result.isConfirmed) {
+            //if()
             this._services.UpdateTypeInsurance(this.generateRequest(item)).subscribe({
               next:resp=>{
                if(resp.code=='201'){
@@ -156,6 +158,12 @@ export class InsuranceComponent implements OnInit {
                   showConfirmButton: false,
                   timer: 1500
                 })
+                codeInsurance.disabled=true;
+                nameInsurance.disabled=true;
+                description.disabled=true;
+                sumaAsegurada.disabled=true;
+                prima.disabled=true;
+                legalAge.disabled=true;
                } 
               }
               })
@@ -230,6 +238,9 @@ eliminar( item:InsuranceModel){
                   allowOutsideClick:false,
                   timer: 1500
                 })
+                document.getElementById("closeButton")?.click();
+                this.registarInsurance=new InsuranceModel();
+                Object.values(this.formCreate.controls).forEach(controls=>controls.markAsUntouched());
               }
                 else{
                   Swal.fire({

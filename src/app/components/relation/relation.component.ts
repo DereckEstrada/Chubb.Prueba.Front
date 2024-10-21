@@ -211,6 +211,8 @@ eliminar( item:RelationCustomerModel){
       this.insuranceList.push(insurance);
     }
     getFile(event:any){
+      const file: File | null = event.target.files[0];
+      if (file) {
       Swal.fire({
         title: "Deseas registrar este archivo?",
         showDenyButton: true,
@@ -219,7 +221,14 @@ eliminar( item:RelationCustomerModel){
         denyButtonText: `Cancelar`
       }).then((result) => {
         if (result.isConfirmed) {
-          const file: File | null = event.target.files[0];
+          Swal.fire({
+            icon:'info',
+            title:'Subiendo archivo',
+            showConfirmButton: false,
+            allowOutsideClick:false,
+            allowEscapeKey:false,
+          })
+          Swal.showLoading()
 
           if (file) {
             const formData = new FormData();
@@ -256,4 +265,5 @@ eliminar( item:RelationCustomerModel){
       }
       })
     }
+  }
 }
